@@ -16,7 +16,7 @@ const Navbar = () => {
           className="max-sm : size-10"
         />
         <p className="text-white text-[26px] font-extrabold max-sm:hidden">
-          Loom
+          Yoom
         </p>
       </Link>
 
