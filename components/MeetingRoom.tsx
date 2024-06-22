@@ -24,7 +24,7 @@ type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
 
 const MeetingRoom = () => {
   const searchParams = useSearchParams();
-  const isPersonalRoom = searchParams.get("Personal");
+  const isPersonalRoom = !!searchParams.get("Personal");
   const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
   const [showParticipants, setShowParticipants] = useState(true);
   const CallLayout = () => {
@@ -92,8 +92,8 @@ const MeetingRoom = () => {
             <Users size={20} className="text-white" />
           </div>
         </button>
+        {!isPersonalRoom && <EndCallButton />}
       </div>
-      {!isPersonalRoom && <EndCallButton />}
     </section>
   );
 };
