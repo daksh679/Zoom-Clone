@@ -7,6 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
 import { useToast } from "./ui/use-toast";
+import { Textarea } from "./ui/textarea";
 
 // import Image from "next/image";
 
@@ -14,7 +15,7 @@ const MeetingTypeList = () => {
   const { toast } = useToast();
   const router = useRouter();
   const [meetingState, setMeetingState] = useState<
-    "isJoiningMeeting" | "isScheduleMetting" | "isInstantMeeting" | undefined
+    "isJoiningMeeting" | "isScheduleMeeting" | "isInstantMeeting" | undefined
   >();
   const { user } = useUser();
   const client = useStreamVideoClient();
@@ -97,6 +98,37 @@ const MeetingTypeList = () => {
         description=""
         handleClick={() => setMeetingState("isInstantMeeting")}
       />
+
+      {!callDetails ? (
+        <MeetingModal
+          isOpen={meetingState === "isScheduleMeeting"}
+          onclose={() => setMeetingState(undefined)}
+          title="Create Meeting"
+          handleCLick={createMeeting}
+          buttonText=""
+          image=""
+        >
+          <div className="flex flex-col gap-2.5">
+            <label className="text-base text-normal leading-[22px] text-sky-2">
+              Add a description
+              <Textarea />
+            </label>
+          </div>
+        </MeetingModal>
+      ) : (
+        <MeetingModal
+          isOpen={meetingState === "isScheduleMeeting"}
+          onclose={() => setMeetingState(undefined)}
+          title="Meeting Created"
+          className="text-center"
+          buttonText="Copy Meeting Link"
+          handleCLick={() => {
+            // navigator.clipboard.writeText(meetingLink);
+            // toast({ title: "Link copied" });
+          }}
+          image="/icons/checked.svg"
+        />
+      )}
 
       <MeetingModal
         isOpen={meetingState === "isInstantMeeting"}
