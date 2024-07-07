@@ -12,12 +12,12 @@ import { Textarea } from "./ui/textarea";
 // import Image from "next/image";
 
 const MeetingTypeList = () => {
-  const { toast } = useToast();
   const router = useRouter();
   const [meetingState, setMeetingState] = useState<
     "isJoiningMeeting" | "isScheduleMeeting" | "isInstantMeeting" | undefined
-  >();
+  >(undefined);
   const { user } = useUser();
+  const { toast } = useToast();
   const client = useStreamVideoClient();
   const [values, setValues] = useState({
     dateTime: new Date(),
